@@ -64,3 +64,30 @@ Resultado:
   }
 }
 */
+
+// CONSULTA 6
+db.atracciones.find({
+  tipo: "juego mecanico",
+  codigo_p: 2,
+  "caracteristicas.altura_minima_cm": { $lte: 120 }
+})
+
+/*
+Resultado: 
+
+{
+  _id: ObjectId('6b025162aa4dac1b3ee45d6c'),
+  codigo: 3344,
+  nombre: 'Carrusel',
+  codigo_p: 2,
+  tipo: 'juego mecanico',
+  etiquetas: [
+    'familiar',
+    'niños'
+  ],
+  caracteristicas: {
+    altura_minima_cm: 100,
+    nivel_intensidad: 'bajo'
+  }
+}
+*/
