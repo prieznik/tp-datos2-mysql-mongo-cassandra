@@ -121,3 +121,46 @@ Resultado:
   }
 }
 */
+
+// CONSULTA 8
+db.atracciones.updateOne(
+  { codigo: 1122 },
+  { $push: { "caracteristicas.horarios": "22:00" } }
+)
+
+/*
+Resultado: 
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+*/
+
+// Validacion 
+db.atracciones.find({ codigo: 1122 })
+
+/*
+{
+  _id: ObjectId('6b025162aa4dac1b3ee45d6a'),
+  codigo: 1122,
+  nombre: 'Fuegos artificiales',
+  codigo_p: 1,
+  tipo: 'show',
+  etiquetas: [
+    'familiar',
+    'aire libre'
+  ],
+  caracteristicas: {
+    duracion_min: 90,
+    horarios: [
+      '11:00',
+      '15:00',
+      '22:00'
+    ]
+  }
+}
+*/
