@@ -39,3 +39,28 @@ db.atracciones.insertMany([
   }
 ])
 
+// CONSULTA 5 
+db.atracciones.find({ codigo: 1122 })
+
+/*
+Resultado:
+
+{
+  _id: ObjectId('6b025162aa4dac1b3ee45d6a'),
+  codigo: 1122,
+  nombre: 'Fuegos artificiales',
+  codigo_p: 1,
+  tipo: 'show',
+  etiquetas: [
+    'familiar',
+    'aire libre'
+  ],
+  caracteristicas: {
+    duracion_min: 90,
+    horarios: [
+      '11:00',
+      '15:00'
+    ]
+  }
+}
+*/
