@@ -108,3 +108,11 @@ SELECT codigo_T, COUNT(*) AS asientos_reservados
 FROM reservas
 WHERE codigo_T = 10
 GROUP BY codigo_T;
+
+-- CONSULTA 4 
+SELECT p.pasaporte, p.nombre, p.apellido, r.numero_asiento
+FROM reservas AS r
+INNER JOIN pasajeros AS p
+    ON r.pasaporte = p.pasaporte
+WHERE r.codigo_T = 10
+ORDER BY r.numero_asiento;
