@@ -84,3 +84,21 @@ SELECT * FROM parques;
 SELECT * FROM micros;
 SELECT * FROM pasajeros;
 SELECT * FROM traslados;
+
+-- CONSULTA 2 
+INSERT INTO reservas (pasaporte, codigo_T, numero_asiento, fecha_reserva) VALUES
+    ('BB22', 10, 30, '2026-11-05'),
+    ('AA11', 10, 32, '2026-11-06'),
+    ('CC33', 10, 5,  '2026-11-07'),
+    ('AA11', 13, 32, '2026-11-08');
+
+SELECT * FROM reservas;
+
+-- Prueba 1: el mismo pasajero no puede reservar dos veces en el mismo traslado (falla por la PK)
+INSERT INTO reservas VALUES ('AA11', 10, 40, '2026-11-09');
+
+-- Prueba 2: el mismo asiento no puede reservarse dos veces en el mismo traslado (falla por el UNIQUE)
+INSERT INTO reservas VALUES ('BB22', 13, 32, '2026-11-09');
+
+-- Prueba 3: no se puede reservar con un pasaporte que no existe (falla por la FK)
+INSERT INTO reservas VALUES ('ZZ99', 10, 12, '2026-11-09');
