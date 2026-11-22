@@ -91,3 +91,33 @@ Resultado:
   }
 }
 */
+
+// CONSULTA 7
+db.atracciones.find({
+  tipo: "restaurante",
+  "caracteristicas.opciones": "sin TACC"
+})
+
+/*
+Resultado: 
+
+
+  _id: ObjectId('6b025162aa4dac1b3ee45d6d'),
+  codigo: 4435,
+  nombre: 'Rico Rico',
+  codigo_p: 2,
+  tipo: 'restaurante',
+  etiquetas: [
+    'interior',
+    'gourmet'
+  ],
+  caracteristicas: {
+    tipo_cocina: 'gourmet',
+    rango_precios: '50-200 USD',
+    opciones: [
+      'sin TACC',
+      'veggie'
+    ]
+  }
+}
+*/
