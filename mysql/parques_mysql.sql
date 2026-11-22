@@ -102,3 +102,9 @@ INSERT INTO reservas VALUES ('BB22', 13, 32, '2026-11-09');
 
 -- Prueba 3: no se puede reservar con un pasaporte que no existe (falla por la FK)
 INSERT INTO reservas VALUES ('ZZ99', 10, 12, '2026-11-09');
+
+-- CONSULTA 3
+SELECT codigo_T, COUNT(*) AS asientos_reservados
+FROM reservas
+WHERE codigo_T = 10
+GROUP BY codigo_T;
