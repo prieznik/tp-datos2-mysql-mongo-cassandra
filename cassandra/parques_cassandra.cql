@@ -4,3 +4,60 @@ CREATE KEYSPACE IF NOT EXISTS agencia WITH replication = {'class': 'SimpleStrate
 DESCRIBE KEYSPACES;
 
 USE agencia;
+
+-- CONSULTA 9 
+CREATE TABLE recorrido_micro (
+    patente text,
+    fecha date,
+    fyh timestamp,
+    latitud decimal,
+    longitud decimal,
+    velocidad_kmh int,
+    PRIMARY KEY ((patente, fecha), fyh)
+) WITH CLUSTERING ORDER BY (fyh DESC);
+
+INSERT INTO recorrido_micro (patente, fecha, fyh, latitud, longitud, velocidad_kmh) VALUES ('A1B2', '2026-11-11', '2026-11-11 09:00:00', 28.3772, -81.5707, 0);
+INSERT INTO recorrido_micro (patente, fecha, fyh, latitud, longitud, velocidad_kmh) VALUES ('A1B2', '2026-11-11', '2026-11-11 09:00:15', 28.3780, -81.5712, 25);
+INSERT INTO recorrido_micro (patente, fecha, fyh, latitud, longitud, velocidad_kmh) VALUES ('A1B2', '2026-11-11', '2026-11-11 09:00:30', 28.3791, -81.5720, 40);
+INSERT INTO recorrido_micro (patente, fecha, fyh, latitud, longitud, velocidad_kmh) VALUES ('A1B2', '2026-11-10', '2026-11-10 09:00:00', 28.3772, -81.5707, 0);
+INSERT INTO recorrido_micro (patente, fecha, fyh, latitud, longitud, velocidad_kmh) VALUES ('C3D4', '2026-11-11', '2026-11-11 09:00:00', 28.4177, -81.5812, 0);
+
+SELECT * FROM recorrido_micro;
+
+/*
+Resultado:
+ patente | fecha      | fyh                             | latitud | longitud | velocidad_kmh
+---------+------------+---------------------------------+---------+----------+---------------
+    C3D4 | 2026-11-11 | 2026-11-11 09:00:00.000000+0000 | 28.4177 | -81.5812 |             0
+    A1B2 | 2026-11-10 | 2026-11-10 09:00:00.000000+0000 | 28.3772 | -81.5707 |             0
+    A1B2 | 2026-11-11 | 2026-11-11 09:00:30.000000+0000 | 28.3791 | -81.5720 |            40
+    A1B2 | 2026-11-11 | 2026-11-11 09:00:15.000000+0000 | 28.3780 | -81.5712 |            25
+    A1B2 | 2026-11-11 | 2026-11-11 09:00:00.000000+0000 | 28.3772 | -81.5707 |             0
+(5 rows)
+*/
+
+-- Consulta 9
+SELECT fyh, latitud, longitud, velocidad_kmh FROM recorrido_micro WHERE patente = 'A1B2' AND fecha = '2026-11-11';
+
+/*
+Resultado:
+ fyh                             | latitud | longitud | velocidad_kmh
+---------------------------------+---------+----------+---------------
+ 2026-11-11 09:00:30.000000+0000 | 28.3791 | -81.5720 |            40
+ 2026-11-11 09:00:15.000000+0000 | 28.3780 | -81.5712 |            25
+ 2026-11-11 09:00:00.000000+0000 | 28.3772 | -81.5707 |             0
+(3 rows)
+
+
+-- Token (A1B2, 2026-11-11)
+SELECT token(patente, fecha) FROM recorrido_micro WHERE patente = 'A1B2' AND fecha = '2026-11-11';
+
+/*
+Resultado:
+ system.token(patente, fecha)
+------------------------------
+          8125047671528697231
+          8125047671528697231
+          8125047671528697231
+(3 rows)
+
