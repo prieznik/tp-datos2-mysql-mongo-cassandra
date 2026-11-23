@@ -1,4 +1,4 @@
-use agencia
+db = db.getSiblingDB("agencia");
 
 db.atracciones.insertMany([
   {

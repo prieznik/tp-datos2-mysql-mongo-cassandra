@@ -100,3 +100,42 @@ Resultado:
  11:00:00.000000000 |             45
 (3 rows)
 */
+
+-- CONSULTA 11
+CREATE TABLE ingresos_por_pasajero (
+    pasaporte text,
+    fyh timestamp,
+    codigo_p int,
+    numero_molinete int,
+    codigo_pulsera text,
+    PRIMARY KEY ((pasaporte), fyh)
+) WITH CLUSTERING ORDER BY (fyh DESC);
+
+INSERT INTO ingresos_por_pasajero (pasaporte, fyh, codigo_p, numero_molinete, codigo_pulsera) VALUES ('AA11', '2026-11-11 09:40:00', 2, 1, 'PUL-001');
+INSERT INTO ingresos_por_pasajero (pasaporte, fyh, codigo_p, numero_molinete, codigo_pulsera) VALUES ('AA11', '2026-11-21 09:45:00', 1, 3, 'PUL-001');
+INSERT INTO ingresos_por_pasajero (pasaporte, fyh, codigo_p, numero_molinete, codigo_pulsera) VALUES ('BB22', '2026-11-11 09:41:00', 2, 2, 'PUL-002');
+
+SELECT * FROM ingresos_por_pasajero;
+
+/*
+Resultado:
+ pasaporte | fyh                             | codigo_p | codigo_pulsera | numero_molinete
+-----------+---------------------------------+----------+----------------+-----------------
+      AA11 | 2026-11-21 09:45:00.000000+0000 |        1 |        PUL-001 |               3
+      AA11 | 2026-11-11 09:40:00.000000+0000 |        2 |        PUL-001 |               1
+      BB22 | 2026-11-11 09:41:00.000000+0000 |        2 |        PUL-002 |               2
+(3 rows)
+*/
+
+SELECT fyh, codigo_p, numero_molinete, codigo_pulsera FROM ingresos_por_pasajero WHERE pasaporte = 'AA11';
+
+/*
+Resultado:
+ fyh                             | codigo_p | numero_molinete | codigo_pulsera
+---------------------------------+----------+-----------------+----------------
+ 2026-11-21 09:45:00.000000+0000 |        1 |               3 |        PUL-001
+ 2026-11-11 09:40:00.000000+0000 |        2 |               1 |        PUL-001
+(2 rows)
+*/
+
+
