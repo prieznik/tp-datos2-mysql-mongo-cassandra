@@ -138,4 +138,43 @@ Resultado:
 (2 rows)
 */
 
+-- CONSULTA 12
+CREATE TABLE ingresos_por_parque (
+    codigo_p int,
+    fecha date,
+    hora time,
+    numero_molinete int,
+    codigo_pulsera text,
+    pasaporte text,
+    PRIMARY KEY ((codigo_p, fecha), hora, numero_molinete, codigo_pulsera)
+) WITH CLUSTERING ORDER BY (hora ASC, numero_molinete ASC, codigo_pulsera ASC);
 
+INSERT INTO ingresos_por_parque (codigo_p, fecha, hora, numero_molinete, codigo_pulsera, pasaporte) VALUES (2, '2026-11-11', '09:40:00', 1, 'PUL-001', 'AA11');
+INSERT INTO ingresos_por_parque (codigo_p, fecha, hora, numero_molinete, codigo_pulsera, pasaporte) VALUES (2, '2026-11-11', '09:40:00', 2, 'PUL-003', 'CC33');
+INSERT INTO ingresos_por_parque (codigo_p, fecha, hora, numero_molinete, codigo_pulsera, pasaporte) VALUES (2, '2026-11-11', '09:41:00', 2, 'PUL-002', 'BB22');
+INSERT INTO ingresos_por_parque (codigo_p, fecha, hora, numero_molinete, codigo_pulsera, pasaporte) VALUES (2, '2026-11-11', '10:30:00', 1, 'PUL-004', 'AA11');
+
+SELECT * FROM ingresos_por_parque;
+
+/*
+Resultado:
+ codigo_p | fecha      | hora               | numero_molinete | codigo_pulsera | pasaporte
+----------+------------+--------------------+-----------------+----------------+-----------
+        2 | 2026-11-11 | 09:40:00.000000000 |               1 |        PUL-001 |      AA11
+        2 | 2026-11-11 | 09:40:00.000000000 |               2 |        PUL-003 |      CC33
+        2 | 2026-11-11 | 09:41:00.000000000 |               2 |        PUL-002 |      BB22
+        2 | 2026-11-11 | 10:30:00.000000000 |               1 |        PUL-004 |      AA11
+(4 rows)
+*/
+
+SELECT hora, numero_molinete, codigo_pulsera, pasaporte FROM ingresos_por_parque WHERE codigo_p = 2 AND fecha = '2026-11-11' AND hora >= '09:00:00' AND hora <= '10:00:00';
+
+/*
+Resultado:
+ hora               | numero_molinete | codigo_pulsera | pasaporte
+--------------------+-----------------+----------------+-----------
+ 09:40:00.000000000 |               1 |        PUL-001 |      AA11
+ 09:40:00.000000000 |               2 |        PUL-003 |      CC33
+ 09:41:00.000000000 |               2 |        PUL-002 |      BB22
+(3 rows)
+*/
